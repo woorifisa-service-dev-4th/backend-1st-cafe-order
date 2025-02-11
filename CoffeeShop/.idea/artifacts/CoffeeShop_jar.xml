@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CoffeeShop:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CoffeeShop_jar</output-path>
+    <root id="archive" name="CoffeeShop.jar">
+      <element id="module-output" name="CoffeeShop" />
+    </root>
+  </artifact>
+</component>
