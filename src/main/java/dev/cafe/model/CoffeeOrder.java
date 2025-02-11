@@ -19,7 +19,7 @@ public class CoffeeOrder {
 	private static List<Drink> drinkList;
 	private static final OrderService orderService;
 
-	public static void orderProcess() throws IOException {
+	public static void orderProcess() throws IOException, InterruptedException {
 		System.out.println("안녕하세요 주문을 시작하겠습니다.");
 		System.out.println("주문 유형을 선택하세요");
 		System.out.println("매장(1) - 테이크 아웃(2)");
@@ -43,11 +43,14 @@ public class CoffeeOrder {
 		System.out.println("지불 금액 입력");
 		Order order = new Order(drinkList, orderType, Integer.parseInt(br.readLine()));
 		orderService.pay(order);
+		System.out.println();
+		System.out.println("프로그램이 3초 뒤 종료됩니다.");
+		Thread.sleep(3000);
 	}
 
 	static {
 		br = new BufferedReader(new InputStreamReader(System.in));
-		drinkList = new ArrayList();
+		drinkList = new ArrayList<>();
 		orderService = new OrderService();
 	}
 }
