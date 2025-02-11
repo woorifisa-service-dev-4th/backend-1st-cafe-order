@@ -10,18 +10,33 @@ import dev.cafe.model.enums.Drink;
 import dev.cafe.model.enums.OrderType;
 
 public class OrderService {
+	
 	public void pay(Order order) {
-		int totalAmount = this.calculateTotal(order.getDrinkList(), order.getOrderType());
-		System.out.println("총 주문 금액: " + NumberFormatter.formatNumber(totalAmount) + "원");
-		System.out.println(NumberFormatter.formatNumber(order.getReceivedAmount()) + "원 지불하셨습니다.");
-		if (order.getReceivedAmount() < totalAmount) {
-			System.out.println("지불한 금액이 부족합니다.\n 결제에 실패했습니다.");
-		} else {
-			PrintStream var10000 = System.out;
-			String var10001 = NumberFormatter.formatNumber(order.getReceivedAmount() - totalAmount);
-			var10000.println("거스름돈은 " + var10001 + "원 입니다.");
-		}
+	    int totalAmount = calculateTotal(order.getDrinkList(), order.getOrderType());
+	    int receivedAmount = order.getReceivedAmount();
+	    int change = receivedAmount - totalAmount;
 
+	    System.out.println("\n+------------------------+");
+	    System.out.println("|      📜 영수증        |");
+
+
+
+	    System.out.println("+------------------------+");
+	    System.out.printf("| 🛒 총 주문 금액  %7s원 |\n", NumberFormatter.formatNumber(totalAmount));
+	    System.out.printf("| 💳 지불 금액    %7s원 |\n", NumberFormatter.formatNumber(receivedAmount));
+	    System.out.println("+------------------------+");
+
+	    if (receivedAmount < totalAmount) {
+	       System.out.println("| ❌ 지불한 금액이 부족합니다. |");
+	       System.out.println("| ⛔ 결제 실패! 추가 지불 필요 |");
+	    } else {
+	       System.out.printf("| 💰 거스름돈     %7s원 |\n", NumberFormatter.formatNumber(change));
+	       System.out.println("| ✅ 결제가 완료되었습니다. |");
+	    }
+
+	    System.out.println("+------------------------+");
+	    System.out.println("|  ☕ 감사합니다! 좋은 하루  |");
+	    System.out.println("+------------------------+\n");
 	}
 
 	public int calculateTotal(List<Drink> drinkList, OrderType orderType) {
