@@ -23,9 +23,12 @@ public class OrderProcessor {
 		if (choice == 1) {
 			type = OrderType.FOR_HERE;
 			System.out.println("매장을 선택하셨습니다");
-		} else {
+		} else if (choice == 2){
 			type = OrderType.TO_GO;
 			System.out.println("테이크아웃을 선택하셨습니다");
+		} else {
+			System.out.println("잘못된 입력입니다. 다시 선택해주세요");
+			return selectType();
 		}
 
 		while (true) {
@@ -52,9 +55,12 @@ public class OrderProcessor {
 		if (choice == 1) {
 			System.out.println("아메리카노를 선택하셨습니다");
 			return Drink.AMERICANO;
-		} else {
+		} else if (choice == 2){
 			System.out.println("라떼를 선택하셨습니다");
 			return Drink.LATTE;
+		} else {
+			System.out.println("잘못된 입력입니다. 다시 선택해주세요");
+			return selectDrink();
 		}
 
 	}
@@ -73,18 +79,43 @@ public class OrderProcessor {
 			totalAmount -= (500 * orders.size());
 		}
 	}
-	
+
 	// 결제 금액 선택
-	
-	public void payOrder() {
+
+//	public void payOrder() {
+//		System.out.println("총 주문 금액: " + totalAmount + "원");
+//		System.out.println("지불할 금액을 입력하세요: ");
+//		int payment = scanner.nextInt();
+//		System.out.println(payment + "원 지불하셨습니다");
+//
+//		validatePayment(payment);
+//
+//		// 거스름돈
+//		int change = payment-totalAmount;
+//		System.out.println("거스름돈은 " + change+ "원 입니다");
+//	}
+	private void payOrder() {
+
 		System.out.println("총 주문 금액: " + totalAmount + "원");
-		System.out.println("지불할 금액을 입력하세요: ");
-		int payment = scanner.nextInt();
-		System.out.println(payment + "원 지불하셨습니다");
-		
-		// 거스름돈 
-		int change = payment-totalAmount;
-		System.out.println("거스름돈은 " + change+ "원 입니다");
+		while (true) {
+			System.out.println("지불할 금액을 입력하세요: ");
+			int payment = scanner.nextInt();
+
+			if (payment >= totalAmount) {
+				System.out.println(payment + "원 지불하셨습니다.");
+				int change = payment - totalAmount;
+				System.out.println("거스름돈은 " + change + "원입니다.");
+				break;
+			} else {
+				System.out.println("금액이 부족합니다. 다시 입력해주세요.");
+			}
+		}
+	}
+	private void validatePayment(int payment) {
+		if (payment < totalAmount) {
+			System.out.println("금액이 부족합니다. 다시 입력해주세요");
+			payOrder();
+		}
 	}
 
 	// 주문 결과 출력
